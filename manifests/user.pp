@@ -16,7 +16,7 @@ class kibana4::user {
       ensure     => present,
       comment    => 'Kibana4 System Account',
       gid        => $kibana4::kibana4_gid,
-      home       => '/bin/false',
+      home       => '/',
       managehome => false,
       shell      => '/bin/false',
       system     => true,
