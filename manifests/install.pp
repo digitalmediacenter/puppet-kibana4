@@ -76,6 +76,20 @@ class kibana4::install {
             before   => Package['kibana4'],
           }
         }
+        'Suse' : {
+          zypprepo { "kibana-${kibana4::repo_version}":
+            baseurl     => "http://packages.elastic.co/kibana/${kibana4::repo_version}/centos",
+            enabled     => '1',
+            gpgcheck    => '1',
+            autorefresh => '1',
+            gpgkey      => 'https://packages.elastic.co/GPG-KEY-elasticsearch',
+            descr       => "Kibana repository for ${kibana4::repo_version}.x packages",
+            before      => Package['kibana4'],
+            name        => 'kibana4',
+            type        => 'yum',
+
+          }
+        }
         'Debian': {
           if !defined(Class['apt']) {
             class { 'apt': }
@@ -95,7 +109,7 @@ class kibana4::install {
           }
         }
         default: {
-          fail("${::operatingsystem} not supported")
+          fail("${::osfamily} not supported")
         }
       }
 
